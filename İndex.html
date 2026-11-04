@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eren & Nisa - Digital Workspace</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #05070d;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Uçuşan Yıldızlar Katmanı */
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            background: #ffffff;
+            border-radius: 50%;
+            animation: float-star linear infinite;
+        }
+
+        @keyframes float-star {
+            0% {
+                transform: translateY(105vh) scale(0.4);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.9;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            z-index: 2;
+        }
+
+        /* Holografik İsim Efekti */
+        .hologram-name {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #00f6ff, #ff007f, #9d00ff, #00f6ff);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 20px rgba(0, 246, 255, 0.5));
+            animation: holo-shift 5s ease infinite, float 3s ease-in-out infinite alternate;
+            margin-bottom: 10px;
+        }
+
+        .heart {
+            color: #ff0055;
+            -webkit-text-fill-color: #ff0055;
+            filter: drop-shadow(0 0 12px rgba(255, 0, 85, 0.9));
+        }
+
+        @keyframes holo-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-8px); }
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #8b9bb4;
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+        }
+
+        /* İletişim Butonları */
+        .social-links {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 246, 255, 0.3);
+            color: #00f6ff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 10px rgba(0, 246, 255, 0.1);
+        }
+
+        .btn:hover {
+            background: #00f6ff;
+            color: #0b0f19;
+            box-shadow: 0 0 25px rgba(0, 246, 255, 0.8);
+            transform: translateY(-3px);
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            font-size: 0.8rem;
+            color: #4a5568;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Arka Plan Uçuşan Yıldızlar -->
+    <div class="stars" id="starsContainer"></div>
+
+    <div class="container">
+        <!-- Holografik İsimler -->
+        <h1 class="hologram-name">Eren <span class="heart">❤️</span> Nisa</h1>
+        <p class="subtitle">System Online // Digital Workspace</p>
+
+        <!-- İletişim Butonları -->
+        <div class="social-links">
+            <a href="https://instagram.com/kullaniciadin" target="_blank" class="btn">Instagram</a>
+            <a href="https://discord.com/users/id_yada_profilin" target="_blank" class="btn">Discord</a>
+            <a href="mailto:eposta@adresin.com" class="btn">E-Mail</a>
+        </div>
+    </div>
+
+    <div class="footer">
+        &copy; 2026 Eren & Nisa. Tüm Hakları Saklıdır.
+    </div>
+
+    <script>
+        // Dinamik yıldız üretme scripti
+        const starsContainer = document.getElementById('starsContainer');
+        const starCount = 45;
+
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            
+            const size = Math.random() * 3 + 1; // Yıldız boyutu
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.left = `${Math.random() * 100}%`;
+            
+            const duration = Math.random() * 4 + 3; // Hız
+            const delay = Math.random() * 5;
+            star.style.animationDuration = `${duration}s`;
+            star.style.animationDelay = `${delay}s`;
+            
+            starsContainer.appendChild(star);
+        }
+    </script>
+</body>
+</html>
