@@ -18,15 +18,15 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            overflow: hidden;
+            overflow-x: hidden;
             position: relative;
+            padding: 40px 20px;
         }
 
         /* Uçuşan Yıldızlar Katmanı */
         .stars {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
@@ -57,17 +57,17 @@
         }
 
         .container {
-            text-align: center;
-            padding: 20px;
+            width: 100%;
+            max-width: 650px;
             z-index: 2;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        /* Holografik İsim Efekti */
+        /* Başlık Efekti */
         .hologram-name {
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             font-weight: 800;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -76,14 +76,9 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             filter: drop-shadow(0 0 20px rgba(0, 246, 255, 0.5));
-            animation: holo-shift 5s ease infinite, float 3s ease-in-out infinite alternate;
-            margin-bottom: 5px;
-        }
-
-        .heart {
-            color: #ff0055;
-            -webkit-text-fill-color: #ff0055;
-            filter: drop-shadow(0 0 12px rgba(255, 0, 85, 0.9));
+            animation: holo-shift 5s ease infinite;
+            margin-bottom: 20px;
+            text-align: center;
         }
 
         @keyframes holo-shift {
@@ -92,166 +87,244 @@
             100% { background-position: 0% 50%; }
         }
 
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            100% { transform: translateY(-8px); }
-        }
-
-        .subtitle {
-            font-size: 1.1rem;
-            color: #8b9bb4;
-            margin-bottom: 25px;
-            letter-spacing: 1px;
-        }
-
-        /* Sayaç Kutusu Tasarımı */
-        .counter-box {
-            margin: 15px 0 30px 0;
-            background: rgba(0, 246, 255, 0.03);
-            border: 1px solid rgba(0, 246, 255, 0.2);
-            padding: 14px 20px;
-            border-radius: 12px;
-            backdrop-filter: blur(5px);
-            max-width: 360px;
+        /* Arama Çubuğu */
+        .search-box {
             width: 100%;
-            box-shadow: 0 0 15px rgba(0, 246, 255, 0.05);
+            position: relative;
+            margin-bottom: 15px;
         }
 
-        .counter-title {
-            font-size: 0.8rem;
-            color: #8b9bb4;
-            margin-bottom: 6px;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-        }
-
-        .counter-grid {
-            font-family: monospace;
+        .search-input {
+            width: 100%;
+            padding: 16px 22px;
             font-size: 1rem;
+            border-radius: 30px;
+            border: 1px solid rgba(0, 246, 255, 0.4);
+            background: rgba(10, 15, 30, 0.7);
             color: #00f6ff;
-            font-weight: bold;
-            text-shadow: 0 0 10px rgba(0, 246, 255, 0.5);
-            line-height: 1.4;
+            outline: none;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 15px rgba(0, 246, 255, 0.2);
+            transition: all 0.3s ease;
         }
 
-        /* İletişim Butonları */
-        .social-links {
+        .search-input:focus {
+            border-color: #ff007f;
+            box-shadow: 0 0 25px rgba(255, 0, 127, 0.4);
+        }
+
+        .search-input::placeholder {
+            color: #5b6f90;
+        }
+
+        /* Hızlı Kısayol Butonları (Göstergeler) */
+        .quick-tags {
             display: flex;
-            gap: 15px;
-            justify-content: center;
+            gap: 10px;
             flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 25px;
         }
 
-        .btn {
+        .tag-btn {
             background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(0, 246, 255, 0.3);
-            color: #00f6ff;
-            padding: 10px 22px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
+            border: 1px solid rgba(0, 246, 255, 0.2);
+            color: #8b9bb4;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
             transition: all 0.3s ease;
             backdrop-filter: blur(5px);
-            box-shadow: 0 0 10px rgba(0, 246, 255, 0.1);
         }
 
-        .btn:hover {
-            background: #00f6ff;
-            color: #0b0f19;
-            box-shadow: 0 0 25px rgba(0, 246, 255, 0.8);
-            transform: translateY(-3px);
+        .tag-btn:hover, .tag-btn.active {
+            background: rgba(0, 246, 255, 0.2);
+            color: #00f6ff;
+            border-color: #00f6ff;
+            box-shadow: 0 0 12px rgba(0, 246, 255, 0.3);
         }
 
-        .footer {
-            position: absolute;
-            bottom: 15px;
-            font-size: 0.75rem;
-            color: #4a5568;
-            z-index: 2;
+        /* İçerik Kartları */
+        .card {
+            width: 100%;
+            background: rgba(10, 15, 30, 0.75);
+            border: 1px solid rgba(0, 246, 255, 0.2);
+            border-radius: 16px;
+            padding: 22px;
+            margin-bottom: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            color: #00f6ff;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(0, 246, 255, 0.15);
+            padding-bottom: 8px;
+        }
+
+        .info-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.95rem;
+            color: #cbd5e1;
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+        }
+
+        .info-item a {
+            color: #ff007f;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .info-item a:hover {
+            text-decoration: underline;
+        }
+
+        .price-tag {
+            color: #00ffaa;
+            font-weight: bold;
+        }
+
+        .redirect-note {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: #8b9bb4;
+            font-style: italic;
+            text-align: center;
+        }
+
+        .hidden {
+            display: none !important;
         }
     </style>
 </head>
 <body>
 
-    <!-- Arka Plan Uçuşan Yıldızlar -->
     <div class="stars" id="starsContainer"></div>
 
     <div class="container">
-        <!-- Holografik İsimler -->
-        <h1 class="hologram-name">Eren <span class="heart">❤️</span> Nisa</h1>
-        <p class="subtitle">System Online // Digital Workspace</p>
+        <h1 class="hologram-name">Eren & Nisa</h1>
 
-        <!-- İlişki Zamanlayıcısı -->
-        <div class="counter-box">
-            <div class="counter-title">Birlikte Geçen Zaman</div>
-            <div id="timeCounter" class="counter-grid">Hesaplanıyor...</div>
+        <!-- Arama Çubuğu -->
+        <div class="search-box">
+            <input type="text" id="searchInput" class="search-input" placeholder="Aramak istediğiniz konuyu yazın (örn: iletişim, ücretler, kurallar)..." oninput="filterCards()">
         </div>
 
-        <!-- İletişim Butonları -->
-        <div class="social-links">
-            <a href="https://instagram.com/tarafinizim" target="_blank" class="btn">Instagram</a>
-            <a href="https://discord.com/users/855450983387627580" target="_blank" class="btn">Discord</a>
-            <a href="mailto:eposta@adresin.com" class="btn">E-Mail</a>
+        <!-- Göstergeler / Kısayol Butonları -->
+        <div class="quick-tags">
+            <button class="tag-btn active" onclick="showAll()">Tümü</button>
+            <button class="tag-btn" onclick="filterTag('iletişim')">İletişim Bilgileri</button>
+            <button class="tag-btn" onclick="filterTag('ücretler')">Ücretler</button>
+            <button class="tag-btn" onclick="filterTag('kurallar')">Kurallar</button>
         </div>
-    </div>
 
-    <div class="footer">
-        &copy; 2026 Eren & Nisa. Tüm Hakları Saklıdır.
+        <!-- İletişim Bilgileri Kartı -->
+        <div class="card" id="card-iletişim" data-keywords="iletişim bilgileri instagram telefon numara tel">
+            <div class="card-title">📞 İletişim Bilgileri</div>
+            <ul class="info-list">
+                <li class="info-item">
+                    <span>Instagram:</span>
+                    <a href="https://instagram.com/tarafınızım" target="_blank">@tarafınızım</a>
+                </li>
+                <li class="info-item">
+                    <span>Telefon Numarası:</span>
+                    <a href="tel:05318499706">0531 849 97 06</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Ücretler Kartı -->
+        <div class="card" id="card-ücretler" data-keywords="ücretler fiyat fiyatlar instagram açma instagram kapatma">
+            <div class="card-title">💳 Ücret Bilgileri</div>
+            <ul class="info-list">
+                <li class="info-item">
+                    <span>Instagram Açma:</span>
+                    <span class="price-tag">200 TL</span>
+                </li>
+                <li class="info-item">
+                    <span>Instagram Kapatma:</span>
+                    <span class="price-tag">200 TL</span>
+                </li>
+            </ul>
+            <p class="redirect-note">⚠️ Diğer tüm özel işlemler ve detaylar için lütfen telefon numarası üzerinden iletişime geçiniz.</p>
+        </div>
+
+        <!-- Kurallar Kartı -->
+        <div class="card" id="card-kurallar" data-keywords="kurallar şartlar kural">
+            <div class="card-title">📜 Hizmet Kuralları</div>
+            <ul class="info-list">
+                <li class="info-item">1. İşlem öncesi ödeme konfirmasyonu alınmaktadır.</li>
+                <li class="info-item">2. Yanlış verilen kullanıcı adı ve bilgilerden sorumluluk kabul edilmez.</li>
+                <li class="info-item">3. İşlem süreleri sistemsel yoğunluğa göre değişiklik gösterebilir.</li>
+            </ul>
+        </div>
     </div>
 
     <script>
-        // Dinamik yıldız üretme scripti
+        // Arka Plan Yıldız Animasyonu
         const starsContainer = document.getElementById('starsContainer');
-        const starCount = 45;
-
-        for (let i = 0; i < starCount; i++) {
+        for (let i = 0; i < 45; i++) {
             const star = document.createElement('div');
             star.classList.add('star');
-            
             const size = Math.random() * 3 + 1;
             star.style.width = `${size}px`;
             star.style.height = `${size}px`;
             star.style.left = `${Math.random() * 100}%`;
-            
-            const duration = Math.random() * 4 + 3;
-            const delay = Math.random() * 5;
-            star.style.animationDuration = `${duration}s`;
-            star.style.animationDelay = `${delay}s`;
-            
+            star.style.animationDuration = `${Math.random() * 4 + 3}s`;
+            star.style.animationDelay = `${Math.random() * 5}s`;
             starsContainer.appendChild(star);
         }
 
-        // 8 Eylül 2024 Başlangıç Tarihi Sayacı
-        const startDate = new Date('2024-09-08T00:00:00');
-
-        function updateCounter() {
-            const now = new Date();
-            let diff = now - startDate;
-
-            const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
-            diff -= years * (1000 * 60 * 60 * 24 * 365.25);
-
-            const months = Math.floor(diff / (1000 * 60 * 60 * 24 * (365.25 / 12)));
-            diff -= months * (1000 * 60 * 60 * 24 * (365.25 / 12));
-
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            diff -= days * (1000 * 60 * 60 * 24);
-
-            const hours = Math.floor(diff / (1000 * 60 * 60));
-            diff -= hours * (1000 * 60 * 60);
-
-            const minutes = Math.floor(diff / (1000 * 60));
-            diff -= minutes * (1000 * 60);
-
-            const seconds = Math.floor(diff / 1000);
-
-            document.getElementById('timeCounter').innerHTML = 
-                `${years} Yıl ${months} Ay ${days} Gün<br>${hours} Saat ${minutes} Dakika ${seconds} Saniye`;
+        // Arama ve Filtreleme Sistemi
+        function filterCards() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.card');
+            
+            cards.forEach(card => {
+                const keywords = card.getAttribute('data-keywords').toLowerCase();
+                if (keywords.includes(query) || query === '') {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
         }
 
-        setInterval(updateCounter, 1000);
-        updateCounter();
+        function filterTag(category) {
+            document.getElementById('searchInput').value = category;
+            filterCards();
+            updateTagButtons(category);
+        }
+
+        function showAll() {
+            document.getElementById('searchInput').value = '';
+            filterCards();
+            updateTagButtons('all');
+        }
+
+        function updateTagButtons(activeCat) {
+            const buttons = document.querySelectorAll('.tag-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+        }
     </script>
 </body>
 </html>
